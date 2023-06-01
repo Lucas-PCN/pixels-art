@@ -1,103 +1,136 @@
-const secondColor = document.querySelectorAll('.color')[1];
-const thirdColor = document.querySelectorAll('.color')[2];
-const fourthColor = document.querySelectorAll('.color')[3];
+const colorPalette = document.getElementById('color-palette');
+const butonReset = document.getElementById('clear-board');
+const pixelBoard = document.getElementById('pixel-board');
+const colors = document.getElementsByClassName('color');
+const boardSize = document.getElementById('board-size');
+const buttonGenerate = document.getElementById('generate-board');
+const othercolours = document.getElementById('othersColors');
 
-const number1 = Math.random() * 255 + 1;
-const number2 = Math.random() * 255 + 1;
-const number3 = Math.random() * 255 + 1;
-const number4 = Math.random() * 255 + 1;
-const number5 = Math.random() * 255 + 1;
-const number6 = Math.random() * 255 + 1;
-const number7 = Math.random() * 255 + 1;
-const number8 = Math.random() * 255 + 1;
-const number9 = Math.random() * 255 + 1;
-
-secondColor.style.backgroundColor = `rgb(${number1}, ${number2}, ${number3})`;
-thirdColor.style.backgroundColor = `rgb(${number4}, ${number5}, ${number6})`;
-fourthColor.style.backgroundColor = `rgb(${number7}, ${number8}, ${number9})`;
-
-const board = document.querySelector('#pixel-board');
-
-function addInitialBoard() {
-    const lines = 5;
-    const columns = 5;
-    for (let i = 0; i < lines; i += 1) {
-    const addSection = document.createElement('section');
-    addSection.classList.add('group');
-    board.appendChild(addSection);
-        for (let j = 0; j < columns; j += 1) {
-            const addDiv = document.createElement('div');
-            addDiv.classList.add('pixel');
-            addSection.appendChild(addDiv);
-        }
-    }
+// functions
+function createDivClass(numbers, local, clas) {
+  for (let index = 1; index <= numbers; index += 1) {
+    const element = document.createElement('div');
+    element.className = clas;
+    local.appendChild(element);
+  }
 }
 
-addInitialBoard();
-
-const paletas = document.querySelector('#color-palette');
-function selectColor (event) {
-    const selected = document.querySelector('.selected');
-    selected.classList.remove('selected');
-    event.target.classList.add('selected');
+// cria cores aleatórias
+function rgbCode() {
+  const red = parseInt((Math.random() * 250), 10);
+  const green = parseInt((Math.random() * 250), 10);
+  const blue = parseInt((Math.random() * 250), 10);
+  return `rgb(${red}, ${green}, ${blue})`;
 }
-paletas.addEventListener('click', selectColor);
 
-function paintSquare (e) {
-    const select = document.querySelector('.selected')
-    const background = window.getComputedStyle(select, null).getPropertyValue('background-color');
-    e.target.style.backgroundColor = background;
+// adiciona background color aos elementos de class color.
+function addbackgroundColor(index, color) {
+  colors[index].style.backgroundColor = color;
 }
-board.addEventListener('click', paintSquare)
 
-const botao = document.querySelector('#clear-board')
-function clean () {
-    const quadro = document.querySelectorAll('.pixel');
-    for (let index = 0; index < quadro.length; index += 1) {
-        quadro[index].style.backgroundColor = 'white';
-    }
+function createColors(nun) {
+  for (let index = 2; index <= nun; index += 1) {
+    addbackgroundColor(index, rgbCode());
+  }
 }
-botao.addEventListener('click', clean);
 
-const input = document.querySelector('input');
-const botaoGerador = document.querySelector('#generate-board');
+// seletor de cores
+function removeClassColor() {
+  for (let index = 0; index < colors.length; index += 1) {
+    colors[index].removeAttribute(colors[index].className = 'color');
+  }
+}
 
-function confereInput(numero) {
-  if (numero < 5) {
+function selecteColor() {
+  for (let index = 0; index < colors.length; index += 1) {
+    colors[index].addEventListener('click', () => {
+      removeClassColor();
+      colors[index].className += ' selected';
+    });
+  }
+}
+
+// pintor de pixels.
+function pixelColor() {
+  const pixels = document.querySelectorAll('.pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].addEventListener('click', (event) => {
+      const color = document.querySelector('.selected');
+      event.target.style.backgroundColor = color.style.backgroundColor;
+    });
+  }
+}
+
+// botão de limpar o quadro.
+butonReset.addEventListener('click', () => {
+  const pixels = document.querySelectorAll('.pixel');
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = 'white';
+  }
+});
+
+function sizeFilter() {
+  const size = parseInt(boardSize.value);
+  if (size < 5) {
     return 5;
   }
-  if (numero > 50) {
-    return 50;
+  if (size > 40) {
+    return 40;
   }
-  return numero;
+  return size;
 }
 
-function removeInitialBoard () {
-    const group = document.querySelectorAll('.group');
-    for (let index = 0; index < group.length; index += 1) {
-        board.removeChild(group[index]);
-    }
+function deletPixel() {
+  const pixelLine = document.querySelectorAll('.pixelLine');
+  for (let index = 0; index < pixelLine.length; index += 1) {
+    pixelBoard.removeChild(pixelLine[index]);
+  }
 }
 
-function addUserBoard () {
-    if (!input.value) {
-        alert('Board inválido!');
-    } else {
-        removeInitialBoard();
-        const N = confereInput(input.value);
-        const lines = N;
-        const columns = N;
-        for (let i = 0; i < lines; i += 1) {
-            const addSection = document.createElement('section');
-            addSection.classList.add('group');
-            board.appendChild(addSection);
-            for (let j = 0; j < columns; j += 1) {
-                const addDiv = document.createElement('div');
-                addDiv.classList.add('pixel');
-                addSection.appendChild(addDiv);
-            }
-        }
-    }
+function widthRegulator() {
+  const value = sizeFilter();
+  const width = value * 43;
+  pixelBoard.style.width = `${width}px`;
 }
 
-botaoGerador.addEventListener('click', addUserBoard);
+function pixelCreator(size) {
+  createDivClass(size, pixelBoard, 'pixelLine display');
+  const pixelLine = document.querySelectorAll('.pixelLine');
+  for (let index = 0; index < pixelLine.length; index += 1) {
+    createDivClass(size, pixelLine[index], 'pixel');
+  }
+}
+pixelCreator(5);
+
+function pixelsLength() {
+  const size = sizeFilter();
+  if (isNaN(size)) {
+    return alert('Invalid board!');
+  }
+  deletPixel();
+  widthRegulator();
+  pixelCreator(size);
+}
+
+function button() {
+  buttonGenerate.addEventListener('click', () => {
+    pixelsLength();
+    pixelColor();
+  });
+  othercolours.addEventListener('click', () => {
+    createColors(23);
+  });
+}
+
+// chama as funções
+createDivClass(24, colorPalette, 'color');
+addbackgroundColor(0, 'black');
+addbackgroundColor(1, 'white');
+createColors(23);
+selecteColor();
+pixelColor();
+button();
+
+window.onload = () => {
+  colors[0].className += ' selected';
+};

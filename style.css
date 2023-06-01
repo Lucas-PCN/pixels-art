@@ -1,39 +1,155 @@
-* {
-        margin: 0;
-        padding: 0;
+@font-face {
+  font-family: Overbyte;
+  src: url('fonts/Demo-Overbyte/Demo_Fonts/Fontspring-DEMO-ccoverbyteoffregular.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
 }
 
-.header {
-        padding: 1%;
-        background-color: burlywood;
-        text-align: center;
+@font-face {
+  font-family: OverbyteOn;
+  src: url('fonts/Demo-Overbyte/Demo_Fonts/Fontspring-DEMO-ccoverbyteonregular.woff') format('woff');
+  font-weight: 100;
+  font-style: normal;
+}
+
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-image: url('images/background.jpg');
+  background-size: cover;
+  height: 100%;
+}
+
+header {
+  padding: 1%;
+  text-align: center;
 }
 
 main {
-        margin-top: 30px;
-        text-align: center;
+  margin-bottom: 100px;
 }
 
-.black {
-        background-color: black;
+footer {
+  background-color: rgb(48, 48, 48);
+  color: white;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  position: fixed;
+}
+
+footer p {
+  padding: 20px;
+}
+
+footer a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+#title {
+  font-family: Overbyte;
+  font-size: 80px;
+  font-weight: 100;
+  color: #011627;
+  background-color: #1e90ff;
+  width: 370px;
+  margin: 30px auto 30px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.color-theme{
+  background-color: #AFC3D4;
+}
+
+.position {
+  margin: 20px auto;
+}
+
+.display {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+
+#color-palette {
+  background-color: #e5fcc2;
+  width: 360px;
+  padding: 10px;
+  border-radius: 15px;
 }
 
 .color {
-        border: 1px solid black;
-        height: 60px;
-        width: 60px;
-        display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 #pixel-board {
-        margin-top: 30px;
+  background-color: white;
+  width: 215px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 50px;
 }
 
 .pixel {
-        border: 1px solid black;
-        height: 40px;
-        width: 40px;
-        display: inline-block;
-        background-color: white;
-  }
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  margin: 0;
+  background-color: white;
+}
 
+.selected {
+  box-shadow: 1px 1px 5px black;
+}
+
+.button {
+  font-family: OverbyteOn;
+  height: auto;
+  text-align: center;
+  padding: 9px 12px;
+  font-size: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #D3E2EF;
+  box-shadow: 1px 1px 10px white;
+}
+
+#othersColors {
+  width: 160px;
+  height: auto;
+}
+
+#clear-board {
+  margin-left: 20px;
+  width: 100px;
+}
+
+#board-size {
+  border-style: none;
+  width: 50px;
+  height: 25px;
+  font-size: 20px;
+  border-radius: 7px 0 0 7px;
+  padding: 9px 12px;
+}
+
+#generate-board {
+  width: 100px;
+  border-radius: 0 7px 7px 0;
+  margin: 0%;
+  display: inline;
+}

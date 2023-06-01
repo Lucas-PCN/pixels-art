@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel art project</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="shortcut icon" href="images/favicon-32x32.png" type="image/x-icon">
+  <title>Pixel art</title>
 </head>
 <body>
-    <header class = "header">
-        <h1 id = "title">Paleta de Cores</h1>
-    </header>
-    <main>
-        <section id = "color-palette">
-            <div class = "color black selected"></div>
-            <div class = "color"></div>
-            <div class = "color"></div>
-            <div class = "color"></div>
-        </section>
-        <br>
-        <button id = "clear-board">Limpar</button>
-        <input type = "number" min = "1" id = "board-size">
-        <button id = "generate-board">VQV</button>
-        <section id="pixel-board"></section>
-    </main>
+  <header>
+    <h1 id="title">Pixels Art</h1>
+  </header>
+  <main>
+    <section id="color-palette" class="display position"></section>
+    <div id="othersColors" class="button color-theme position">Switch colors</div>
+    <section id="interactions" class="display position">
+      <input id="board-size" type="number" min="1">
+      <div id="generate-board" class="color-theme button">Set grid</div>
+      <div id="clear-board" class="button color-theme">Clear</div>
+    </section>
+    <section id="pixel-board" class="position"></section>
+  </main>
+  <footer>
+    <p>
+      HTML, CSS and JavaScript project developed by <a href="https://www.linkedin.com/in/lucas-pereira-castanheira/" rel="author" target="_blank">Lucas Castanheira</a>
+    </p>
+  </footer>
 </body>
 <script src = "script.js"></script>
 </html>
