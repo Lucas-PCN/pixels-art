@@ -1,16 +1,16 @@
 const colorPalette = document.getElementById('color-palette');
-const butonReset = document.getElementById('clear-board');
+const resetButton = document.getElementById('clear-board');
 const pixelBoard = document.getElementById('pixel-board');
 const colors = document.getElementsByClassName('color');
 const boardSize = document.getElementById('board-size');
-const buttonGenerate = document.getElementById('generate-board');
-const othercolours = document.getElementById('othersColors');
+const generateButton = document.getElementById('generate-board');
+const otherColors = document.getElementById('otherColors');
 
 // functions
-function createDivClass(numbers, local, clas) {
+function createDivClass(numbers, local, chosenClass) {
   for (let index = 1; index <= numbers; index += 1) {
     const element = document.createElement('div');
-    element.className = clas;
+    element.className = chosenClass;
     local.appendChild(element);
   }
 }
@@ -24,27 +24,27 @@ function rgbCode() {
 }
 
 // adiciona background color aos elementos de class color.
-function addbackgroundColor(index, color) {
+function addBackgroundColor(index, color) {
   colors[index].style.backgroundColor = color;
 }
 
 function createColors(nun) {
   for (let index = 2; index <= nun; index += 1) {
-    addbackgroundColor(index, rgbCode());
+    addBackgroundColor(index, rgbCode());
   }
 }
 
 // seletor de cores
-function removeClassColor() {
+function renameClassColor() {
   for (let index = 0; index < colors.length; index += 1) {
-    colors[index].removeAttribute(colors[index].className = 'color');
+    colors[index].className = 'color';
   }
 }
 
-function selecteColor() {
+function selectedColor() {
   for (let index = 0; index < colors.length; index += 1) {
     colors[index].addEventListener('click', () => {
-      removeClassColor();
+      renameClassColor();
       colors[index].className += ' selected';
     });
   }
@@ -62,7 +62,7 @@ function pixelColor() {
 }
 
 // botão de limpar o quadro.
-butonReset.addEventListener('click', () => {
+resetButton.addEventListener('click', () => {
   const pixels = document.querySelectorAll('.pixel');
   for (let index = 0; index < pixels.length; index += 1) {
     pixels[index].style.backgroundColor = 'white';
@@ -80,7 +80,7 @@ function sizeFilter() {
   return size;
 }
 
-function deletPixel() {
+function deletePixel() {
   const pixelLine = document.querySelectorAll('.pixelLine');
   for (let index = 0; index < pixelLine.length; index += 1) {
     pixelBoard.removeChild(pixelLine[index]);
@@ -100,6 +100,7 @@ function pixelCreator(size) {
     createDivClass(size, pixelLine[index], 'pixel');
   }
 }
+
 pixelCreator(5);
 
 function pixelsLength() {
@@ -107,29 +108,29 @@ function pixelsLength() {
   if (isNaN(size)) {
     return alert('Invalid board!');
   }
-  deletPixel();
+  deletePixel();
   widthRegulator();
   pixelCreator(size);
 }
 
-function button() {
-  buttonGenerate.addEventListener('click', () => {
+function addButtonsEvents() {
+  generateButton.addEventListener('click', () => {
     pixelsLength();
     pixelColor();
   });
-  othercolours.addEventListener('click', () => {
+  otherColors.addEventListener('click', () => {
     createColors(23);
   });
 }
 
 // chama as funções
 createDivClass(24, colorPalette, 'color');
-addbackgroundColor(0, 'black');
-addbackgroundColor(1, 'white');
+addBackgroundColor(0, 'black');
+addBackgroundColor(1, 'white');
 createColors(23);
-selecteColor();
+selectedColor();
 pixelColor();
-button();
+addButtonsEvents();
 
 window.onload = () => {
   colors[0].className += ' selected';
